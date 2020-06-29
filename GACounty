@@ -1,0 +1,14 @@
+import plotly.express as px
+import pandas as pd
+df = pd.read_csv('C:/Users/matth/OneDrive/Documents/Data Science/DuBois/blackgeorgia2020.csv')
+import geojson
+with open('C:/Users/matth/OneDrive/Documents/Data Science/DuBois/us-county-boundaries.geojson') as f:
+    gj = geojson.load(f)
+features = gj['features'][0]
+fig = px.choropleth(df, geojson=gj, color="BlackPopBin",
+                    locations="County", featureidkey="properties.name",
+                    projection="mercator"
+                   )
+fig.update_geos(fitbounds="locations", visible=False)
+fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+fig.show()
